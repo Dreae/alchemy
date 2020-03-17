@@ -159,7 +159,7 @@ defmodule Alchemy.Channel do
 
     Whether or not the channel is considered nsfw
   - `last_message_id`
-    
+
     The id of the last message sent in the channel, if any
   - `parent_id`
 
@@ -222,7 +222,7 @@ defmodule Alchemy.Channel do
 
     The id of the guild this channel belongs to
   - `position`
-    
+
     The sorting position of this channel in the guild
   - `permission_overwrites`
 
@@ -324,6 +324,16 @@ defmodule Alchemy.Channel do
       2 -> VoiceChannel.from_map(map)
       3 -> GroupDMChannel.from_map(map)
       4 -> ChannelCategory.from_map(map)
+    end
+  end
+
+  def to_map(channel) do
+    case channel do
+      %TextChannel{} = channel -> TextChannel.to_map(channel)
+      %DMChannel{} = channel -> DMChannel.to_map(channel)
+      %VoiceChannel{} = channel -> VoiceChannel.to_map(channel)
+      %GroupDMChannel{} = channel -> GroupDMChannel.to_map(channel)
+      %ChannelCategory{} = channel -> ChannelCategory.to_map(channel)
     end
   end
 end
