@@ -247,6 +247,24 @@ defmodule Alchemy.Client do
   end
 
   @doc """
+  Edits member specific permission overrides for a channel
+
+  ## Options
+  - allow: Set of permissions to allow
+  - deny: Set of permissions to deny
+
+  ## Examples
+  ```elixir
+  Client.edit_channel_permissions(channel_id, user_id, allow: Permissions.to_bitset([:manage_channels]))
+  ```
+  """
+  @spec edit_channel_permissions(snowflake, snowflake, allow: Integer, deny: Integer) :: {:ok, Channel.t()} | {:error, term}
+  def edit_channel_permissions(channel_id, user_id, options) do
+    {Channels, :edit_permissions, [channel_id, user_id, options]}
+    |> send_req("/channels/#{channel_id}/permissions/#{user_id}")
+  end
+
+  @doc """
   Deletes a channel from a guild.
 
 

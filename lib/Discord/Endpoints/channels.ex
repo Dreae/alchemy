@@ -24,6 +24,10 @@ defmodule Alchemy.Discord.Channels do
     Api.patch(@root <> channel_id, token, Api.encode(options), Channel)
   end
 
+  def edit_permissions(token, channel_id, user_id, options) do
+    Api.put(@root <> channel_id <> "/permissions/" <> user_id, token, Api.encode(Keyword.merge(options, [type: "member"])))
+  end
+
   def delete_channel(token, channel_id) do
     Api.delete(@root <> channel_id, token, &parse_channel/1)
   end

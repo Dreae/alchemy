@@ -276,15 +276,15 @@ defmodule Alchemy.Guild do
   @doc """
   Finds the highest ranked role of a member in a guild.
 
-  This is useful, because the permissions and color 
+  This is useful, because the permissions and color
   of the highest role are the ones that apply to that member.
   """
   @spec highest_role(t, member) :: role
   def highest_role(guild, member) do
     guild.roles
     |> Enum.sort_by(& &1.position)
-    # never null because of the @everyone role 
-    |> Enum.find(&(&1 in member.roles))
+    # never null because of the @everyone role
+    |> Enum.find(&(&1.id in member.roles))
   end
 
   defmacrop is_valid_guild_icon_url(type, size) do
