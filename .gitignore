@@ -21,3 +21,4 @@ lib/CogLib/
 doc/
 mix.lock
 ttb_last_config
+.elixir_ls/
