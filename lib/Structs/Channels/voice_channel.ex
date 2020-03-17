@@ -20,4 +20,8 @@ defmodule Alchemy.Channel.VoiceChannel do
     |> field_map("permission_overwrites", &map_struct(&1, OverWrite))
     |> to_struct(__MODULE__)
   end
+
+  def to_map(channel) do
+    Map.put(Map.from_struct(channel), :type, 2)
+  end
 end

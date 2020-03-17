@@ -11,4 +11,8 @@ defmodule Alchemy.Channel.DMChannel do
     |> field_map("recipients", &map_struct(&1, User))
     |> to_struct(__MODULE__)
   end
+
+  def to_map(channel) do
+    Map.put(Map.from_struct(channel), :type, 1)
+  end
 end
