@@ -186,6 +186,7 @@ defmodule Alchemy.Permissions do
   def channel_permissions(%Guild.GuildMember{} = member, %Guild{channels: cs} = guild, channel_id) do
     highest_role = Guild.highest_role(guild, member)
     channel = Enum.find(cs, &(&1.id == channel_id))
+    overwrite = Enum.find(channel.permission_overwrites, &(&1.id == member.user.id))
 
     case channel do
       nil ->
@@ -193,8 +194,8 @@ defmodule Alchemy.Permissions do
 
       _ ->
         {:ok,
-         (highest_role.permissions ||| channel.overwrite.allow) &&&
-           ~~~channel.overwrite.deny}
+         (highest_role.permissions ||| overwrite.allow) &&&
+           ~~~overwrite.deny}
     end
   end
 
